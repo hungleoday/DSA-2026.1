@@ -1,40 +1,39 @@
 #include <stdio.h>
 void PrintArray(int a[], int n) {
-    for (int k = 0; k < n; k++) {
-        printf("%d ", a[k]);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a[i]);
     }
     printf("\n");
 }
-void MergeArrays(int a[], int m, int n, int p, int total_N) {
+void MergeArray(int a[], int m, int n, int p, int N) {
     int i = m, j = n + 1;
     while (i < j && j <= p) {
-        if (a[i] <= a[j]) {
-            i++;
-        } else { // Chen a[j] vao vi tri i
+        if (a[i] <= a[j]) i++;
+        else{
             int x = a[j];
             for (int k = j - 1; k >= i; k--) {
                 a[k + 1] = a[k];
             }
             a[i] = x;
-            PrintArray(a, total_N);
+            PrintArray(a, N);
             i++;
             j++;
         }
     }
 }
-void Split_Merg(int a[], int first, int last, int total_N) {
+void Split(int a[], int first, int last, int N) {
     if (first >= last) return;
     int m = (first + last) / 2;
-    Split_Merg(a, first, m, total_N); 
-    Split_Merg(a, m + 1, last, total_N);   
-    MergeArrays(a, first, m, last, total_N);
+    Split(a, first, m, N); 
+    Split(a, m + 1, last, N);   
+    MergeArray(a, first, m, last, N);
 }
 void MergeSort(int a[], int n) {
     if (n < 2) return;
-    Split_Merg(a, 0, n - 1, n);
+    Split(a, 0, n - 1, n);
 }
 int main() {
-     int n;
+    int n;
     printf("Nhap so phan tu: ");
     scanf("%d", &n);
     int a[n];
